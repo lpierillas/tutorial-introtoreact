@@ -42,9 +42,12 @@ class Board extends React.Component {
 
     render() {
         const winner = calculateWinner(this.state.squares);
+        const boardComplete = isBoardComplete(this.state.squares);
         let status;
         if (winner) {
             status = 'Winner: ' + winner;
+        } else if (boardComplete) {
+            status = 'No winner';
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         }
@@ -115,4 +118,14 @@ function calculateWinner(squares) {
         }
     }
     return null;
+}
+
+function isBoardComplete(squares) {
+    let isComplete = true;
+    for (let i = 0; i < squares.length; i++) {
+        if (!squares[i]) {
+            isComplete = false;
+        }
+    }
+    return isComplete;
 }
